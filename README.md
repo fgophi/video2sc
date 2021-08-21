@@ -15,7 +15,7 @@ Fate Grand Orderのフレンドポイント召喚動画から召喚結果のス�
 ## 必要なソフトウェア
 - Python 3.7以降
 
-## インストール
+## 依存ライブラリのインストール
 
 ```
 $ pip install -r requirements.txt
@@ -48,15 +48,15 @@ optional arguments:
 ### 具体例
 ```
 $ python video2sc.py example.mp4
-$ python fgogachacnt.py -f video_screenshot > expmle.csv
-$ python csv2report.py example.py
+$ python fgogachacnt.py -f video_screenshot > example.csv
+$ python csv2report.py example.csv
 ```
 
 ## Tips
 
 ### Youtubeのフレンドポイント召喚動画の処理
 
-(youtube-dl)[https://ytdl-org.github.io/youtube-dl/index.html] を使用することで動画をローカルにダウンロードすることができ、本プログラムで処理することが可能です
+[youtube-dl](https://ytdl-org.github.io/youtube-dl/index.html) を使用することで動画をローカルにダウンロードすることができ、本プログラムで処理することが可能です
 
 例:
 
@@ -66,4 +66,4 @@ youtube-dl.exe https://www.youtube.com/watch?v=7ecPT7PiNIU -f "bestvideo[ext=mp4
 
 ## 謝辞
 
-本ソフトウェアは (capy-vod-parser)[https://github.com/atlasacademy/capy-vod-parser]を参考に作成しました
+本ソフトウェアは [capy-vod-parser](https://github.com/atlasacademy/capy-vod-parser) を参考に作成しました
