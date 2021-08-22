@@ -1,6 +1,6 @@
 **注意**: 本ソフトウェアはまだ少ないサンプルでしか検証していない為、不具合が多発する可能性があります
 
-# video2sc
+# video2ss
 
 Fate Grand Orderのフレンドポイント召喚動画から召喚結果のスクリーンショットを抽出する
 
@@ -8,7 +8,7 @@ Fate Grand Orderのフレンドポイント召喚動画から召喚結果のス�
 
 1. スマホでフレンドポイント召喚動画撮影
 2. PCに転送
-3. video2scによる召喚結果スクショ抽出
+3. video2ssによる召喚結果スクショ抽出
 4. [fgogachacnt](https://github.com/fgosc/fgogachacnt)によるスクショ画像認識
 
 
@@ -24,8 +24,8 @@ $ pip install -r requirements.txt
 ## 使い方
 
 ```
-$ python video2sc.py -h
-usage: video2sc.py [-h] [-o OUTPUT] [-ss SS] [-to TO]
+$ python video2ss.py -h
+usage: video2ss.py [-h] [-o OUTPUT] [-ss SS] [-to TO]
                    [--loglevel {warning,debug,info}]
                    file_name
 
@@ -47,12 +47,17 @@ optional arguments:
 
 ### 具体例
 ```
-$ python video2sc.py example.mp4
+$ python video2ss.py example.mp4
 $ python fgogachacnt.py -f video_screenshot > example.csv
 $ python csv2report.py example.csv
 ```
 
 ## Tips
+
+### 動画撮影時のポイント
+
+1. 通知はオフにすること
+2. 「続けて10回召喚」ボタンを押したり、確認ダイアログが出たときに9枚目あたりのカードにタップ跡をつけないように注意すること
 
 ### Youtubeのフレンドポイント召喚動画の処理
 

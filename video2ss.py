@@ -221,7 +221,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     lformat = '%(name)s <%(filename)s-L%(lineno)s> [%(levelname)s] %(message)s'
     logging.basicConfig(
-        filename="test.log",
         level=logging.INFO,
         format=lformat,
     )
