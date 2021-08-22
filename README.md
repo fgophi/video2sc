@@ -45,10 +45,12 @@ optional arguments:
 
 スクリーンショットが抽出されたフォルダ(デフォルト: video_screenshot)が作成されるので、そのフォルダを[fgogachacnt](https://github.com/fgosc/fgogachacnt)で処理してください
 
+強制的に10連と認識させるオプション -m 10 の使用を推奨します(フレンドポイント召喚の場合)
+
 ### 具体例
 ```
 $ python video2ss.py example.mp4
-$ python fgogachacnt.py -f video_screenshot > example.csv
+$ python fgogachacnt.py -f video_screenshot -m 10 > example.csv
 $ python csv2report.py example.csv
 ```
 
@@ -57,7 +59,11 @@ $ python csv2report.py example.csv
 ### 動画撮影時のポイント
 
 1. 通知はオフにすること
-2. 「続けて10回召喚」ボタンを押したり、確認ダイアログが出たときに9枚目あたりのカードにタップ跡をつけないように注意すること
+2. カード上にタップ跡をつけないように注意すること「続けて10回召喚」ボタンや確認ダイアログのボタンをむやみに連打していると起こります
+
+下記のようにタップ跡がついたカードは誤認識します
+
+![image](https://user-images.githubusercontent.com/62515228/130352979-3680089b-8dd1-42fc-8b5f-3334ec9befe5.png)
 
 ### Youtubeのフレンドポイント召喚動画の処理
 
