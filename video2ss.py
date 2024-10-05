@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import time
 import logging
 from pathlib import Path
 
@@ -117,11 +118,20 @@ def recognize_screenshot(frame, name):
     # cv2.imwrite(name, frame_resize)
     # return
     height, width = frame_resize.shape[:2]
+    # 編成ボタン描画完了をチェック
     hensei_button_file = Path(__file__).resolve().parent / Path("template/hensei_button.jpg")
     template = cv2.imread(str(hensei_button_file))
     res = cv2.matchTemplate(frame_resize[int(height*3/4): height, 0: int(width*1/3)], template, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, _ = cv2.minMaxLoc(res)
-    if summon_flag is False and max_val > 0.9:
+    if max_val <= 0.9:
+        max_val_close = 0
+    else:
+        # 閉じるボタン描画完了をチェック
+        close_button_file = Path(__file__).resolve().parent / Path("template/close_button.jpg")
+        template_close = cv2.imread(str(close_button_file))
+        res_close = cv2.matchTemplate(frame_resize[0: int(height*0.3), 0: int(width*1/5)], template_close, cv2.TM_CCOEFF_NORMED)
+        _, max_val_close, _, _ = cv2.minMaxLoc(res_close)
+    if summon_flag is False and max_val > 0.9 and max_val_close > 0.9:
         summon_flag = True
         cv2.imwrite(str(name), frame_resize)
         logger.debug("Found summon at %s", name)
@@ -165,6 +175,8 @@ def main(args):
     ret = cap.set(cv2.CAP_PROP_POS_FRAMES, ss_frame)
     logger.debug(ret)
 
+    unixtime = int(time.time())  # 実行時刻のunixtimeを取得
+
     with tqdm(total=to_frame - ss_frame) as pbar:
         while cap.isOpened():
             ret, frame = cap.read()
@@ -181,7 +193,7 @@ def main(args):
                     logger.debug("lx = %d, %ty = %d, rx = %d, by = %d", lx, ty, rx, by)
                     check_notch = True
                 if (ss_frame <= frame_id <= to_frame) and (frame_id % SKIP == 0):
-                    res = recognize_screenshot(frame[ty: height - by, lx: width - rx], out_dir / Path(f"{frame_id/fps:0=7.2f}.jpg"))
+                    res = recognize_screenshot(frame[ty: height - by, lx: width - rx], out_dir / Path(f"{unixtime}_{frame_id/fps:0=7.2f}.jpg"))
                     if res == RESULT:
                         status = cap.set(cv2.CAP_PROP_POS_FRAMES, frame_id + SUMMON2DARK)
                         pbar.update(SUMMON2DARK)
